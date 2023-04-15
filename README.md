@@ -1,11 +1,11 @@
 # WebSocket API Bridge Extension for Chat.OpenAI
 This browser extension is specifically designed to communicate with chat.openai.com using WebSockets. It allows users to interact with the chat interface by sending messages and receiving responses through a WebSocket server.
 
-<img width="750" alt="截圖 2023-04-15 下午9 42 41" src="https://user-images.githubusercontent.com/22150402/232227769-95f1fef1-2914-4162-bfad-c95b850a28a1.png">
+<img width="750" alt="" src="https://user-images.githubusercontent.com/22150402/232227769-95f1fef1-2914-4162-bfad-c95b850a28a1.png">
 
-<img width="753" alt="截圖 2023-04-15 下午9 42 24" src="https://user-images.githubusercontent.com/22150402/232227774-ba1a2e4d-7576-4ab1-820a-5ffd09f1c4dd.png">
+<img width="753" alt="" src="https://user-images.githubusercontent.com/22150402/232227774-ba1a2e4d-7576-4ab1-820a-5ffd09f1c4dd.png">
 
-<img width="541" alt="截圖 2023-04-15 下午9 42 56" src="https://user-images.githubusercontent.com/22150402/232227783-828d7dd4-d942-4bca-8033-f530f225858f.png">
+<img width="541" alt="" src="https://user-images.githubusercontent.com/22150402/232227783-828d7dd4-d942-4bca-8033-f530f225858f.png">
 
 
 ## Features
