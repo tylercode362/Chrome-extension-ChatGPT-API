@@ -5,7 +5,7 @@ This browser extension is specifically designed to communicate with chat.openai.
 
 <img width="753" alt="" src="https://user-images.githubusercontent.com/22150402/232227774-ba1a2e4d-7576-4ab1-820a-5ffd09f1c4dd.png">
 
-<img width="541" alt="" src="https://user-images.githubusercontent.com/22150402/232227783-828d7dd4-d942-4bca-8033-f530f225858f.png">
+![image](https://user-images.githubusercontent.com/22150402/232239230-57d6db32-7342-487f-a72b-15e206af72bc.png)
 
 
 ## Features
