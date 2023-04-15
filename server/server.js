@@ -40,6 +40,7 @@ app.post('/send-message', async (req, res) => {
   const { message } = req.body;
   // Create a unique identifier for the request
   const requestId = Date.now();
+  let responseSent = false;
 
   const promises = clients.map((client) => {
     return new Promise((resolve) => {
@@ -61,6 +62,7 @@ app.post('/send-message', async (req, res) => {
     console.log(data.type === 'response', data.requestId, requestId)
     if (data.type === 'response' && data.requestId === requestId) {
       res.status(200).json({ data: data.content });
+      responseSent = true;
 
       // Remove the listener
       clients.forEach((client) => {
@@ -80,14 +82,16 @@ app.post('/send-message', async (req, res) => {
 
   // Set a timeout for the response
   setTimeout(() => {
-    res.status(408).json({ error: 'Request timeout' });
+    if (!responseSent) {
+      res.status(408).json({ error: 'Request timeout' });
 
-    // Remove the listener
-    clients.forEach((client) => {
-      if (client.readyState === WebSocket.OPEN) {
-        client.removeEventListener('message', handleResponse);
-      }
-    });
+      // Remove the listener
+      clients.forEach((client) => {
+        if (client.readyState === WebSocket.OPEN) {
+          client.removeEventListener('message', handleResponse);
+        }
+      });
+    }
   }, 120000); // 120 seconds timeout
 });
 
