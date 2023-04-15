@@ -1,18 +1,26 @@
-#WebSocket API Bridge Extension for Chat.OpenAI
+# WebSocket API Bridge Extension for Chat.OpenAI
 This browser extension is specifically designed to communicate with chat.openai.com using WebSockets. It allows users to interact with the chat interface by sending messages and receiving responses through a WebSocket server.
 
-##Features
+<img width="750" alt="" src="https://user-images.githubusercontent.com/22150402/232227769-95f1fef1-2914-4162-bfad-c95b850a28a1.png">
+
+<img width="753" alt="" src="https://user-images.githubusercontent.com/22150402/232227774-ba1a2e4d-7576-4ab1-820a-5ffd09f1c4dd.png">
+
+<img width="541" alt="" src="https://user-images.githubusercontent.com/22150402/232227783-828d7dd4-d942-4bca-8033-f530f225858f.png">
+
+
+## Features
 Communicate with chat.openai.com using WebSockets
 Send messages to chat.openai.com through a WebSocket server
 Receive responses from chat.openai.com and display them in the chat interface
 
-##Usage
+## Usage
 Clone the repository to your local machine:
 
 ```
-git clone https://github.com/your-repository/websocket-api-bridge-extension.git
+git clone https://github.com/tylercode362/websocket-api-bridge-extension.git
 cd websocket-api-bridge-extension/server
 docker-compose up
+``` 
 
 ###Install the extension in Google Chrome:
 
@@ -21,7 +29,7 @@ Enable "Developer mode" in the top-right corner
 Click on "Load unpacked" and select the websocket-api-bridge-extension/extension folder
 Visit https://chat.openai.com/ and start using the extension.
 
-##API
+## API
 The server exposes an API endpoint to send messages to the chat:
 
 Send Message
