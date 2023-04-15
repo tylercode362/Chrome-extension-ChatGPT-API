@@ -23,12 +23,20 @@ toggleButton.addEventListener('click', toggleExtension);
 
 floatingControl.appendChild(toggleButton);
 
-const statusDisplay = document.createElement('span');
+const statusDisplay = document.createElement('div');
 statusDisplay.id = 'status-display';
 
 floatingControl.appendChild(statusDisplay);
 
+const connectionStatus = document.createElement('div');
+connectionStatus.id = 'connection-status';
+floatingControl.appendChild(connectionStatus);
+
 document.body.appendChild(floatingControl);
+
+function updateConnectionStatus(status) {
+  connectionStatus.innerText = status;
+}
 
 function toggleExtension() {
   chrome.storage.sync.get(['enabled'], (result) => {
@@ -43,6 +51,7 @@ function toggleExtension() {
         if (socket) {
           socket.close();
           socket = null;
+          updateConnectionStatus('Disconnected');
         }
       }
     });
@@ -69,6 +78,7 @@ function initializeSocket() {
 
   socket.onopen = () => {
     console.log('Connected to WebSocket server');
+    updateConnectionStatus('Connected');
   };
 
   socket.onmessage = (event) => {
@@ -93,6 +103,16 @@ function initializeSocket() {
         checkRegenerateResponseAndUpdate(targetElement, matchingElements.length, requestId);
       }
     }
+  };
+
+  socket.onclose = () => {
+    console.log('Disconnected from WebSocket server');
+    updateConnectionStatus('Disconnected');
+  };
+
+  socket.onerror = () => {
+    console.log('Error occurred in WebSocket connection');
+    updateConnectionStatus('Error');
   };
 }
 
