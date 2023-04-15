@@ -13,6 +13,8 @@ Communicate with chat.openai.com using WebSockets
 Send messages to chat.openai.com through a WebSocket server
 Receive responses from chat.openai.com (ChatGPT Web) and display them in the chat interface
 
+Support: ChatGPT Plus (GPT-3.5 / GPT-4) & Free Version 
+
 ## Usage
 Clone the repository to your local machine:
 
