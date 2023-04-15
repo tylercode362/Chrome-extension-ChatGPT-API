@@ -15,7 +15,7 @@ This WebSocket API Bridge Extension is compatible with both ChatGPT Plus (includ
 - Establish real-time communication with chat.openai.com using WebSockets
 - Effortlessly send messages to chat.openai.com via a WebSocket server
 - Receive prompt responses from ChatGPT Web, directly displayed in the chat interface
-- Broad compatibility with ChatGPT Plus (GPT-3.5 / GPT-4) and Free Version
+- Broad compatibility with ChatGPT Plus (GPT-3.5 / GPT-4) and Free Version (https://chat.openai.com/)
 
 
 ## Usage
