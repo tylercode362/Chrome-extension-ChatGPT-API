@@ -19,7 +19,7 @@ This WebSocket API Bridge Extension is compatible with both ChatGPT Plus (includ
 
 
 ## Usage
-Clone the repository to your local machine:
+### Clone the repository to your local machine:
 
 ```
 git clone https://github.com/tylercode362/websocket-api-bridge-extension.git
@@ -27,7 +27,7 @@ cd websocket-api-bridge-extension/server
 docker-compose up
 ``` 
 
-###Install the extension in Google Chrome:
+### Install the extension in Google Chrome:
 
 Open Chrome and navigate to chrome://extensions/
 Enable "Developer mode" in the top-right corner
