@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "WebSocket API Bridge Extension for Chat.OpenAI",
+  "description": "A browser extension to communicate with chat.openai.com using WebSockets.",
+  "version": "1.0",
+  "action": {
+    "default_icon": {
+      "16": "public/logo192.png",
+      "48": "public/logo192.png",
+      "128": "public/logo192.png"
+    }
+  },
+  "permissions": ["storage"],
+  "content_scripts": [
+    {
+      "matches": ["https://chat.openai.com/*"],
+      "js": ["content.js"]
+    }
+  ]
+}
+

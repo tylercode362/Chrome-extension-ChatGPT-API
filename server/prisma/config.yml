@@ -1,0 +1,10 @@
+port: 4466
+databases:
+  default:
+    connector: postgres
+    host: db
+    port: 5432
+    user: user
+    password: password
+    migrations: true
+    active: true

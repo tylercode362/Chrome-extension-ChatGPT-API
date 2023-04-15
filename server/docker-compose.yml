@@ -1,0 +1,12 @@
+version: '3.9'
+
+services:
+  app:
+    build: .
+    environment:
+      DATABASE_URL: "file:./dev.db"
+    ports:
+      - "3000:3000"
+
+volumes:
+  db_data:
