@@ -35,10 +35,13 @@ The server exposes an API endpoint to send messages to the chat:
 Send Message
 Send a message to chat.openai.com through the WebSocket server.
 
+```
 URL: /send-message
 Method: POST
 Content-Type: application/json
 Data Params: { "message": "Your message here" }
+```
+
 Example:
 
 ```
