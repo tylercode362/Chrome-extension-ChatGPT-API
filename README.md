@@ -29,6 +29,10 @@ Enable "Developer mode" in the top-right corner
 Click on "Load unpacked" and select the websocket-api-bridge-extension/extension folder
 Visit https://chat.openai.com/ and start using the extension.
 
+![截圖 2023-04-16 上午12 50 49](https://user-images.githubusercontent.com/22150402/232239034-f8c54614-5f01-419b-8c0b-a75fbc270764.png)
+![截圖 2023-04-16 上午12 51 07](https://user-images.githubusercontent.com/22150402/232239035-de122fde-977d-4567-8048-9a2ecf60e599.png)
+
+
 ## API
 The server exposes an API endpoint to send messages to the chat:
 
