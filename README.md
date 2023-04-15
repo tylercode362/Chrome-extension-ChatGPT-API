@@ -11,7 +11,7 @@ This browser extension is specifically designed to communicate with chat.openai.
 ## Features
 Communicate with chat.openai.com using WebSockets
 Send messages to chat.openai.com through a WebSocket server
-Receive responses from chat.openai.com and display them in the chat interface
+Receive responses from chat.openai.com (ChatGPT Web) and display them in the chat interface
 
 ## Usage
 Clone the repository to your local machine:
