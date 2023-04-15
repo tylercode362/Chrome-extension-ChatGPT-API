@@ -27,6 +27,8 @@ cd websocket-api-bridge-extension/server
 docker-compose up
 ``` 
 
+[How to Install Docker Compose](https://docs.docker.com/compose/install/)
+
 ### Install the extension in Google Chrome:
 
 Open Chrome and navigate to chrome://extensions/
