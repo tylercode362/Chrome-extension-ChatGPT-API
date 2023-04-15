@@ -1,5 +1,8 @@
-# WebSocket API Bridge Extension for Chat.OpenAI
-This browser extension is specifically designed to communicate with chat.openai.com using WebSockets. It allows users to interact with the chat interface by sending messages and receiving responses through a WebSocket server.
+# API Bridge Chrome Extension for ChatGPT(Web)
+
+A cutting-edge browser extension designed to facilitate seamless communication with chat.openai.com using WebSockets. This extension enables users to interact with the chat interface by sending messages and receiving responses through a WebSocket server, providing a user-friendly and efficient experience.
+
+This WebSocket API Bridge Extension is compatible with both ChatGPT Plus (including GPT-3.5 and GPT-4) and the Free Version, ensuring access for a wide range of users.
 
 <img width="750" alt="" src="https://user-images.githubusercontent.com/22150402/232227769-95f1fef1-2914-4162-bfad-c95b850a28a1.png">
 
@@ -9,11 +12,11 @@ This browser extension is specifically designed to communicate with chat.openai.
 
 
 ## Features
-Communicate with chat.openai.com using WebSockets
-Send messages to chat.openai.com through a WebSocket server
-Receive responses from chat.openai.com (ChatGPT Web) and display them in the chat interface
+- Establish real-time communication with chat.openai.com using WebSockets
+- Effortlessly send messages to chat.openai.com via a WebSocket server
+- Receive prompt responses from ChatGPT Web, directly displayed in the chat interface
+- Broad compatibility with ChatGPT Plus (GPT-3.5 / GPT-4) and Free Version
 
-Support: ChatGPT Plus (GPT-3.5 / GPT-4) & Free Version 
 
 ## Usage
 Clone the repository to your local machine:
