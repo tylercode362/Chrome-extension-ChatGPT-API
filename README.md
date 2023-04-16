@@ -17,6 +17,10 @@ This WebSocket API Bridge Extension is compatible with both ChatGPT Plus (includ
 - Receive prompt responses from ChatGPT Web, directly displayed in the chat interface
 - Broad compatibility with ChatGPT Plus (GPT-3.5 / GPT-4) and Free Version (https://chat.openai.com/)
 
+If you're interested in collaborating on the Auto-GPT project, please give it a try:
+[Auto-GPT-web-chat](https://github.com/tylercode362/Auto-GPT-web-chat)
+<img width="1435" alt="" src="https://user-images.githubusercontent.com/22150402/232292997-664f68ae-c8c0-4e21-b637-51cbd9dd8157.png">
+
 
 ## Usage
 ### Clone the repository to your local machine:
