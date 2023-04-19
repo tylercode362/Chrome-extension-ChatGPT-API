@@ -6,6 +6,7 @@ const app = express();
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
+const requestIds = {};
 let clients = [];
 
 function logRequest(req, res, next) {
@@ -36,15 +37,34 @@ wss.on('connection', (ws) => {
 app.use(logRequest);
 app.use(express.json());
 
-app.post('/send-message', async (req, res) => {
-  const { message } = req.body;
-  // Create a unique identifier for the request
+const sendMessage = async (req, res) => {
+  let message;
   const requestId = Date.now();
   let responseSent = false;
+  requestIds[requestId] = { path: req.path, responseSent: false }
+
+  if (req.path === '/chat/completions') {
+    console.log(
+      `Request received: ${req.method} ${req.path} ${JSON.stringify(req.body)}`
+    );
+
+    const { messages } = req.body;
+
+    message = messages
+      ? messages
+          .map((message) => `${message.role}: ${message.content}`)
+          .join('\n')
+      : '';
+    console.log('Combined messages:', message);
+  } else {
+    message = req.body.message;
+    console.log('Request received:', req.method, req.path, JSON.stringify(req.body));
+  }
 
   const promises = clients.map((client) => {
     return new Promise((resolve) => {
       if (client.readyState === WebSocket.OPEN) {
+        console.log(requestId)
         client.send(JSON.stringify({ type: 'new-message', message, requestId: requestId }), () => {
           resolve();
         });
@@ -56,15 +76,44 @@ app.post('/send-message', async (req, res) => {
 
   await Promise.all(promises);
 
-  // Define a function to handle responses from the extension
   const handleResponse = (message) => {
     const data = JSON.parse(message.data.toString());
-    console.log(data.type === 'response', data.requestId, requestId)
+
     if (data.type === 'response' && data.requestId === requestId) {
-      res.status(200).json({ data: data.content });
+      const requestPath = requestIds[requestId].path;
+      requestIds[requestId].responseSent = true
+
+      if (requestPath === '/chat/completions') {
+        const now = Math.floor(Date.now() / 1000);
+        const formattedResponse = {
+          id: requestId,
+          object: 'chat.completion',
+          created: now,
+          model: 'gpt-4',
+          usage: {
+            prompt_tokens: 1,
+            completion_tokens: 1,
+            total_tokens: 2,
+          },
+          choices: [
+            {
+              message: {
+                role: 'assistant',
+                content: data.content,
+              },
+              finish_reason: 'stop',
+              index: 0,
+            },
+          ],
+        };
+
+        res.status(200).json(formattedResponse);
+      } else {
+        res.status(200).json({ data: data.content });
+      }
+
       responseSent = true;
 
-      // Remove the listener
       clients.forEach((client) => {
         if (client.readyState === WebSocket.OPEN) {
           client.removeEventListener('message', handleResponse);
@@ -73,28 +122,27 @@ app.post('/send-message', async (req, res) => {
     }
   };
 
-  // Add the listener to all clients
   clients.forEach((client) => {
     if (client.readyState === WebSocket.OPEN) {
       client.addEventListener('message', handleResponse);
     }
   });
 
-  // Set a timeout for the response
   setTimeout(() => {
-    if (!responseSent) {
+    if (!requestIds[requestId].responseSent) {
       res.status(408).json({ error: 'Request timeout' });
 
-      // Remove the listener
       clients.forEach((client) => {
         if (client.readyState === WebSocket.OPEN) {
           client.removeEventListener('message', handleResponse);
         }
       });
     }
-  }, 120000); // 120 seconds timeout
-});
+  }, 120000);
+};
 
+app.post('/send-message', sendMessage);
+app.post('/chat/completions', sendMessage);
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
