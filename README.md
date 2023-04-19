@@ -1,5 +1,8 @@
-# WebSocket API Bridge Extension for Chat.OpenAI
-This browser extension is specifically designed to communicate with chat.openai.com using WebSockets. It allows users to interact with the chat interface by sending messages and receiving responses through a WebSocket server.
+# API Bridge Chrome Extension for ChatGPT(Web)
+
+A cutting-edge browser extension designed to facilitate seamless communication with chat.openai.com using WebSockets. This extension enables users to interact with the chat interface by sending messages and receiving responses through a WebSocket server, providing a user-friendly and efficient experience.
+
+This WebSocket API Bridge Extension is compatible with both ChatGPT Plus (including GPT-3.5 and GPT-4) and the Free Version, ensuring access for a wide range of users.
 
 <img width="750" alt="" src="https://user-images.githubusercontent.com/22150402/232227769-95f1fef1-2914-4162-bfad-c95b850a28a1.png">
 
@@ -9,14 +12,18 @@ This browser extension is specifically designed to communicate with chat.openai.
 
 
 ## Features
-Communicate with chat.openai.com using WebSockets
-Send messages to chat.openai.com through a WebSocket server
-Receive responses from chat.openai.com (ChatGPT Web) and display them in the chat interface
+- Establish real-time communication with chat.openai.com using WebSockets
+- Effortlessly send messages to chat.openai.com via a WebSocket server
+- Receive prompt responses from ChatGPT Web, directly displayed in the chat interface
+- Broad compatibility with ChatGPT Plus (GPT-3.5 / GPT-4) and Free Version (https://chat.openai.com/)
 
-Support: ChatGPT Plus (GPT-3.5 / GPT-4) & Free Version 
+If you're interested in collaborating on the Auto-GPT project, please give it a try:
+[Auto-GPT-web-chat](https://github.com/tylercode362/Auto-GPT-web-chat)
+<img width="1435" alt="" src="https://user-images.githubusercontent.com/22150402/232292997-664f68ae-c8c0-4e21-b637-51cbd9dd8157.png">
+
 
 ## Usage
-Clone the repository to your local machine:
+### Clone the repository to your local machine:
 
 ```
 git clone https://github.com/tylercode362/websocket-api-bridge-extension.git
@@ -24,7 +31,9 @@ cd websocket-api-bridge-extension/server
 docker-compose up
 ``` 
 
-###Install the extension in Google Chrome:
+[How to Install Docker Compose](https://docs.docker.com/compose/install/)
+
+### Install the extension in Google Chrome:
 
 Open Chrome and navigate to chrome://extensions/
 Enable "Developer mode" in the top-right corner
