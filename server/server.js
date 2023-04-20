@@ -1,12 +1,14 @@
 const express = require('express');
 const WebSocket = require('ws');
 const http = require('http');
-
+const crypto = require('crypto');
 const app = express();
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
 const requestIds = {};
+
+const md5 = crypto.createHash('md5');
 let clients = [];
 
 function logRequest(req, res, next) {
@@ -86,7 +88,7 @@ const sendMessage = async (req, res) => {
       if (requestPath === '/chat/completions') {
         const now = Math.floor(Date.now() / 1000);
         const formattedResponse = {
-          id: requestId,
+          id: md5.update(data.currentUrl).digest('hex'),
           object: 'chat.completion',
           created: now,
           model: 'gpt-4',
@@ -109,7 +111,7 @@ const sendMessage = async (req, res) => {
 
         res.status(200).json(formattedResponse);
       } else {
-        res.status(200).json({ data: data.content });
+        res.status(200).json({ data: data.content, url: data.currentUrl });
       }
 
       responseSent = true;

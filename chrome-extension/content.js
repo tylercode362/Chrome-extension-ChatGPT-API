@@ -140,7 +140,12 @@ function checkRegenerateResponseAndUpdate(element, matchLength, requestId = last
     // Send the updated content to the local server
     if (socket && socket.readyState === WebSocket.OPEN) {
       previousElementCount = matchLength;
-      socket.send(JSON.stringify({ type: 'response', requestId: requestId, content: updatedContent }));
+      socket.send(JSON.stringify({
+        type: 'response',
+        requestId: requestId,
+        content: updatedContent,
+        currentUrl: window.location.href
+      }));
     }
   } else {
     setTimeout(() => checkRegenerateResponseAndUpdate(element, matchLength, requestId), 100);
