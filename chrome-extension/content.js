@@ -128,12 +128,12 @@ function checkRegenerateResponseAndUpdate(element, matchLength, requestId = last
     );
   });
   if (matchingButton) {
-    const updatedContent = element.innerText;
-
-    if (content == updatedContent) {
+    const markdownElement = element.querySelector('.markdown');
+    if (!markdownElement) {
       return false;
     }
-    content = element.innerText
+
+    const updatedContent = markdownElement.innerHTML;
 
     console.log('Sending updated content:', updatedContent);
 
