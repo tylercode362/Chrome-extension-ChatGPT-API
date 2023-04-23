@@ -88,7 +88,7 @@ const sendMessage = async (req, res) => {
       if (requestPath === '/chat/completions') {
         const now = Math.floor(Date.now() / 1000);
         const formattedResponse = {
-          id: md5.update(data.currentUrl).digest('hex'),
+          id: requestId,
           object: 'chat.completion',
           created: now,
           model: 'gpt-4',
@@ -111,7 +111,7 @@ const sendMessage = async (req, res) => {
 
         res.status(200).json(formattedResponse);
       } else {
-        res.status(200).json({ data: data.content, url: data.currentUrl });
+        res.status(200).json({ data: data.content, url: data.currentUrl, requestId: requestId });
       }
 
       responseSent = true;
