@@ -45,6 +45,13 @@ const sendMessage = async (req, res) => {
   let responseSent = false;
   requestIds[requestId] = { path: req.path, responseSent: false }
 
+  const activeClients = clients.filter(client => client.readyState === WebSocket.OPEN);
+
+  if (activeClients.length === 0) {
+    res.status(503).json({ error: 'Browser Extension disconnected' });
+    return;
+  }
+
   if (req.path === '/chat/completions') {
     console.log(
       `Request received: ${req.method} ${req.path} ${JSON.stringify(req.body)}`
