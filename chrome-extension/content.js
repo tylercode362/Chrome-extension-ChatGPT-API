@@ -89,12 +89,15 @@ function initializeSocket() {
       const requestId = data.requestId;
       lastMessageID = data.requestId;
       const inputElement = document.querySelector('textarea');
-      inputElement.value = data.message;
-      inputElement.dispatchEvent(new Event('input', { bubbles: true }));
 
-      // You can submit the form by triggering a 'submit' event, or by clicking the submit button.
-      const formElement = inputElement.closest('form');
-      formElement.dispatchEvent(new Event('submit', { bubbles: true }));
+      if (inputElement) {
+        inputElement.value = data.message;
+        inputElement.dispatchEvent(new Event('input', { bubbles: true }));
+
+        const formElement = inputElement.closest('form');
+        formElement.dispatchEvent(new Event('submit', { bubbles: true }));
+      }
+
 
       const matchingElements = findMatchingElements();
       const targetElement = matchingElements.reverse().find((element) => true);
@@ -129,8 +132,15 @@ function checkRegenerateResponseAndUpdate(element, matchLength, requestId = last
   });
   if (matchingButton) {
     const markdownElements = document.querySelectorAll('.markdown');
+    const errorElements = document.querySelectorAll('.border-red-500')
     const lastMarkdownElement = markdownElements[markdownElements.length - 1];
-    const updatedContent = lastMarkdownElement.innerHTML;
+    let updatedContent = ""
+
+    if (errorElements.length > 0) {
+      updatedContent = errorElements[0].innerText
+    }else if (lastMarkdownElement) {
+      updatedContent = lastMarkdownElement.innerHTML;
+    }
 
     if (content == updatedContent) {
       return false;
