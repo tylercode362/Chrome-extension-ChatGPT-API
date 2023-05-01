@@ -43,12 +43,14 @@ const sendMessage = async (req, res) => {
   let message;
   const requestId = Date.now();
   let responseSent = false;
-  requestIds[requestId] = { path: req.path, responseSent: false }
+  const { messages } = req.body;
+
+  requestIds[requestId] = { path: req.path, responseSent: false, callbackContent: req.body.callbackContent }
 
   const activeClients = clients.filter(client => client.readyState === WebSocket.OPEN);
 
   if (activeClients.length === 0) {
-    res.status(503).json({ error: 'Browser Extension disconnected' });
+    res.status(503).json({error: 'Browser Extension disconnected', callbackContent: req.body.callbackContent});
     return;
   }
 
@@ -56,8 +58,6 @@ const sendMessage = async (req, res) => {
     console.log(
       `Request received: ${req.method} ${req.path} ${JSON.stringify(req.body)}`
     );
-
-    const { messages } = req.body;
 
     message = messages
       ? messages
@@ -95,6 +95,7 @@ const sendMessage = async (req, res) => {
       if (requestPath === '/chat/completions') {
         const now = Math.floor(Date.now() / 1000);
         const formattedResponse = {
+          callbackContent: req.body.callbackContent,
           id: requestId,
           object: 'chat.completion',
           created: now,
@@ -115,10 +116,10 @@ const sendMessage = async (req, res) => {
             },
           ],
         };
-
         res.status(200).json(formattedResponse);
       } else {
-        res.status(200).json({ data: data.content, url: data.currentUrl, requestId: requestId });
+        const responseData = { data: data.content, url: data.currentUrl, requestId: requestId, callbackContent: req.body.callbackContent }
+        res.status(200).json(responseData);
       }
 
       responseSent = true;
@@ -139,7 +140,7 @@ const sendMessage = async (req, res) => {
 
   setTimeout(() => {
     if (!requestIds[requestId].responseSent) {
-      res.status(408).json({ error: 'Request timeout' });
+      res.status(408).json({ error: 'Request timeout', callbackContent: requestIds[requestId].callbackContent });
 
       clients.forEach((client) => {
         if (client.readyState === WebSocket.OPEN) {
