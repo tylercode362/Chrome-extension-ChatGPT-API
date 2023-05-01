@@ -151,8 +151,21 @@ const sendMessage = async (req, res) => {
   }, 120000);
 };
 
+const sendStopMessage = async (req, res) => {
+  const stopReq = {
+    ...req,
+    path: '/stop',
+    body: {
+      ...req.body,
+      message: 'stop',
+    },
+  };
+  await sendMessage(stopReq, res);
+};
+
 app.post('/send-message', sendMessage);
 app.post('/chat/completions', sendMessage);
+app.post('/stop', sendStopMessage);
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {

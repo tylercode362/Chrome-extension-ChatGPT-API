@@ -85,7 +85,9 @@ function initializeSocket() {
     const data = JSON.parse(event.data);
 
     // Check if the received data has 'type' and 'message' properties
-    if (data.type === 'new-message' && data.message) {
+    if (data.type === 'new-message' && data.message && data.message === 'stop'){
+      stopGenerating();
+    }else if (data.type === 'new-message' && data.message) {
       const requestId = data.requestId;
       lastMessageID = data.requestId;
       const inputElement = document.querySelector('textarea');
@@ -184,6 +186,32 @@ const observer = new MutationObserver((mutations) => {
     }
   });
 });
+
+async function stopGenerating() {
+  await new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(true);
+    }, 2000);
+  });
+
+  const allButtons = document.querySelectorAll('button');
+  let stopButton = Array.from(allButtons).reverse().find((button) => {
+    const buttonText = button.innerText;
+    return buttonText === 'Stop generating';
+  });
+
+  if(!stopButton) {
+    stopButton = Array.from(allButtons).reverse().find((button) => {
+      const svgRect = button.querySelector('svg rect');
+      return svgRect;
+    });
+  }
+
+
+  if (stopButton) {
+    stopButton.dispatchEvent(new Event('click', { bubbles: true }));
+  }
+}
 
 function startObserver() {
   const mainElement = document.querySelector('main');
