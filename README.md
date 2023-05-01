@@ -17,10 +17,15 @@ This WebSocket API Bridge Extension is compatible with both ChatGPT Plus (includ
 - Receive prompt responses from ChatGPT Web, directly displayed in the chat interface
 - Broad compatibility with ChatGPT Plus (GPT-3.5 / GPT-4) and Free Version (https://chat.openai.com/)
 
-If you're interested in collaborating on the Auto-GPT project, please give it a try:
+If you're interested in collaborating on 
+
+1. the Auto-GPT project, please give it a try:
 [Auto-GPT-web-chat](https://github.com/tylercode362/Auto-GPT-web-chat)
 <img width="1435" alt="" src="https://user-images.githubusercontent.com/22150402/232292997-664f68ae-c8c0-4e21-b637-51cbd9dd8157.png">
 
+2. the VS Code extension [VSCode Web ChatGPT Extension](https://github.com/tylercode362/vscode-with-web-chatgpt), please give it a try:
+![image](https://user-images.githubusercontent.com/22150402/235415188-7e159e10-8211-449b-bdc3-22450f0a1ad6.png)
+![image](https://user-images.githubusercontent.com/22150402/235415197-665882b0-3e10-422b-8dab-31fc86868790.png)
 
 ## Usage
 ### Clone the repository to your local machine:
