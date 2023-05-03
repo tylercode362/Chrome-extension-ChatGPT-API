@@ -144,15 +144,11 @@ function checkRegenerateResponseAndUpdate(element, matchLength, requestId = last
       updatedContent = lastMarkdownElement.innerHTML;
     }
 
-    if (content == updatedContent) {
-      return false;
-    }
     content = updatedContent
-
     console.log('Sending updated content:', updatedContent);
-
+    console.log(lastMessageID, requestId)
     // Send the updated content to the local server
-    if (socket && socket.readyState === WebSocket.OPEN) {
+    if (socket && socket.readyState === WebSocket.OPEN && lastMessageID === requestId ) {
       previousElementCount = matchLength;
       socket.send(JSON.stringify({
         type: 'response',
