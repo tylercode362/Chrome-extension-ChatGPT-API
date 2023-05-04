@@ -99,14 +99,6 @@ function initializeSocket() {
         const formElement = inputElement.closest('form');
         formElement.dispatchEvent(new Event('submit', { bubbles: true }));
       }
-
-
-      const matchingElements = findMatchingElements();
-      const targetElement = matchingElements.reverse().find((element) => true);
-
-      if (targetElement) {
-        checkRegenerateResponseAndUpdate(targetElement, matchingElements.length, requestId);
-      }
     }
   };
 
@@ -125,19 +117,15 @@ let previousElementCount = 0;
 let content = "";
 
 function checkRegenerateResponseAndUpdate(element, matchLength, requestId = lastMessageID) {
-  const regenerateButtons = Array.from(document.body.querySelectorAll('main button'));
-  const matchingButton = regenerateButtons.find((button) => {
-    return (
-      button.innerText === 'Regenerate response' ||
-      Array.from(button.classList).includes('disabled:opacity-40')
-    );
-  });
-  if (matchingButton) {
-    const markdownElements = document.querySelectorAll('.markdown');
-    const errorElements = document.querySelectorAll('.border-red-500')
-    const lastMarkdownElement = markdownElements[markdownElements.length - 1];
-    let updatedContent = ""
+  let stopButton = getStopBuddon();
 
+  const markdownElements = element.querySelectorAll('.markdown');
+  const errorElements = document.querySelectorAll('.border-red-500')
+  const lastMarkdownElement = markdownElements[markdownElements.length - 1];
+
+  // Tips: lastMarkdownElement.innerText.length === 1 => ChatGPT is thinking
+  if (!stopButton && lastMarkdownElement.innerText.length > 1) {
+    let updatedContent = ""
     if (errorElements.length > 0) {
       updatedContent = errorElements[0].innerText
     }else if (lastMarkdownElement) {
@@ -162,6 +150,7 @@ function checkRegenerateResponseAndUpdate(element, matchLength, requestId = last
   }
 }
 
+let checkElementsChanger;
 const observer = new MutationObserver((mutations) => {
   const regex = /dark:bg-/;
 
@@ -172,16 +161,34 @@ const observer = new MutationObserver((mutations) => {
 
       if (matchingElements.length !== previousElementCount) {
         const targetElement = matchingElements.reverse().find((element) => true);
-
-        if (targetElement) {
-          setTimeout(() => {
+        if (targetElement.innerText != '') {
+          clearTimeout(checkElementsChanger)
+          checkElementsChanger = setTimeout(() => {
             checkRegenerateResponseAndUpdate(targetElement, matchingElements.length);
-          }, 100);
+          }, 300);
         }
       }
     }
   });
 });
+
+function getStopBuddon() {
+  const allButtons = document.querySelectorAll('button');
+
+  let stopButton = Array.from(allButtons).reverse().find((button) => {
+    const buttonText = button.innerText;
+    return buttonText === 'Stop generating';
+  });
+
+  if(!stopButton) {
+    stopButton = Array.from(document.querySelectorAll('form button')).reverse().find((button) => {
+      const svgRect = button.querySelector('svg rect');
+      return svgRect;
+    });
+  }
+
+  return stopButton;
+}
 
 async function stopGenerating() {
   await new Promise((resolve) => {
@@ -190,21 +197,10 @@ async function stopGenerating() {
     }, 2000);
   });
 
-  const allButtons = document.querySelectorAll('button');
-  let stopButton = Array.from(allButtons).reverse().find((button) => {
-    const buttonText = button.innerText;
-    return buttonText === 'Stop generating';
-  });
-
-  if(!stopButton) {
-    stopButton = Array.from(allButtons).reverse().find((button) => {
-      const svgRect = button.querySelector('svg rect');
-      return svgRect;
-    });
-  }
-
+  let stopButton = getStopBuddon();
 
   if (stopButton) {
+    console.log(stopButton)
     stopButton.dispatchEvent(new Event('click', { bubbles: true }));
   }
 }
