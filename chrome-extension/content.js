@@ -74,7 +74,7 @@ function findMatchingElements() {
 function initializeSocket() {
   let requestId;
 
-  socket = new WebSocket('ws://localhost:3000');
+  socket = new WebSocket('ws://localhost:3030');
 
   socket.onopen = () => {
     console.log('Connected to WebSocket server');

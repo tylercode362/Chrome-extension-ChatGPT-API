@@ -167,7 +167,7 @@ app.post('/send-message', sendMessage);
 app.post('/chat/completions', sendMessage);
 app.post('/stop', sendStopMessage);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3030;
 server.listen(PORT, () => {
   console.log(`Server started on port ${PORT}`);
 });
