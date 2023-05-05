@@ -42,10 +42,11 @@ app.use(express.json());
 const sendMessage = async (req, res) => {
   let message;
   const requestId = Date.now();
-  let responseSent = false;
-  const { messages } = req.body;
+  const { messages, onlyText } = req.body;
 
-  requestIds[requestId] = { path: req.path, responseSent: false, callbackContent: req.body.callbackContent }
+  const isOnlyText = onlyText === 1;
+
+  requestIds[requestId] = { path: req.path, onlyText: isOnlyText, responseSent: false, callbackContent: req.body.callbackContent }
 
   const activeClients = clients.filter(client => client.readyState === WebSocket.OPEN);
 
@@ -74,7 +75,7 @@ const sendMessage = async (req, res) => {
     return new Promise((resolve) => {
       if (client.readyState === WebSocket.OPEN) {
         console.log(requestId)
-        client.send(JSON.stringify({ type: 'new-message', message, requestId: requestId }), () => {
+        client.send(JSON.stringify({ type: 'new-message', message, requestId: requestId, onlyText: isOnlyText }), () => {
           resolve();
         });
       } else {

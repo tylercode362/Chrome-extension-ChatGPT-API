@@ -59,7 +59,7 @@ function toggleExtension() {
 }
 
 let lastMessageID = '';
-
+const requestIds = {};
 function findMatchingElements() {
   const regex = /dark:bg-/;
   const allElements = Array.from(document.querySelectorAll('main div.group'));
@@ -88,8 +88,8 @@ function initializeSocket() {
     if (data.type === 'new-message' && data.message && data.message === 'stop'){
       stopGenerating();
     }else if (data.type === 'new-message' && data.message) {
-      const requestId = data.requestId;
       lastMessageID = data.requestId;
+      requestIds[data.requestId] = { onlyText: data.onlyText }
       const inputElement = document.querySelector('textarea');
 
       if (inputElement) {
@@ -124,12 +124,17 @@ function checkRegenerateResponseAndUpdate(element, matchLength, requestId = last
   const lastMarkdownElement = markdownElements[markdownElements.length - 1];
 
   // Tips: lastMarkdownElement.innerText.length === 1 => ChatGPT is thinking
-  if (!stopButton && lastMarkdownElement.innerText.length > 1) {
+  if (!stopButton && lastMarkdownElement && lastMarkdownElement.innerText.length > 1) {
     let updatedContent = ""
     if (errorElements.length > 0) {
       updatedContent = errorElements[0].innerText
     }else if (lastMarkdownElement) {
-      updatedContent = lastMarkdownElement.innerHTML;
+      console.log(requestIds[requestId])
+      if (requestIds[requestId]['onlyText'] === true) {
+        updatedContent = lastMarkdownElement.innerText;
+      }else{
+        updatedContent = lastMarkdownElement.innerHTML;
+      }
     }
 
     content = updatedContent
@@ -161,11 +166,13 @@ const observer = new MutationObserver((mutations) => {
 
       if (matchingElements.length !== previousElementCount) {
         const targetElement = matchingElements.reverse().find((element) => true);
-        if (targetElement.innerText != '') {
-          clearTimeout(checkElementsChanger)
-          checkElementsChanger = setTimeout(() => {
-            checkRegenerateResponseAndUpdate(targetElement, matchingElements.length);
-          }, 300);
+        if (targetElement) {
+          if (targetElement.innerText != '') {
+            clearTimeout(checkElementsChanger)
+            checkElementsChanger = setTimeout(() => {
+              checkRegenerateResponseAndUpdate(targetElement, matchingElements.length);
+            }, 300);
+          }
         }
       }
     }
