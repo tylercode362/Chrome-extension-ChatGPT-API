@@ -31,8 +31,8 @@ If you're interested in collaborating on
 ### Clone the repository to your local machine:
 
 ```
-git clone https://github.com/tylercode362/websocket-api-bridge-extension.git
-cd websocket-api-bridge-extension/server
+git clone https://github.com/tylercode362/Chrome-extension-ChatGPT-API.git
+cd Chrome-extension-ChatGPT-API/server
 docker-compose up
 ```
 
